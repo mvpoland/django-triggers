@@ -56,3 +56,6 @@ local.properties
 
 # CDT-specific
 .cproject
+
+# PyCharm
+.idea
