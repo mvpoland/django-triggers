@@ -1,5 +1,5 @@
 from django.conf import settings
-from django.core.urlresolvers import get_mod_func
+from django.urls import get_mod_func
 
 REGISTRY = {}
 

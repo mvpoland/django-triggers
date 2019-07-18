@@ -107,7 +107,7 @@ class Trigger(models.Model):
 
 
 class TriggerResult(models.Model):
-    trigger = models.ForeignKey(Trigger)
+    trigger = models.ForeignKey(Trigger, on_delete=models.CASCADE)
     result = models.TextField()
 
     def __repr__(self):
