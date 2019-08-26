@@ -1,5 +1,6 @@
 from django.db import models
 
+
 class TriggerManager(models.Manager):
     def __init__(self, trigger_type):
         super(TriggerManager, self).__init__()

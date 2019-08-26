@@ -13,12 +13,12 @@ class TriggerBase(ModelBase):
     A meta class for all Triggers. Adds a default manager that filters
     on type.
     """
-    def __new__(mcs, name, bases, attrs):
-        super_new = super(TriggerBase, mcs).__new__
+    def __new__(cls, name, bases, attrs):
+        super_new = super(TriggerBase, cls).__new__
         typed = attrs.pop('typed', None)
-        if not typed is None:
+        if typed is not None:
             attrs['objects'] = TriggerManager(typed)
-        new_class = super_new(mcs, name, bases, attrs)
+        new_class = super_new(cls, name, bases, attrs)
         if typed is None:
             return new_class
 
@@ -80,12 +80,16 @@ class Trigger(models.Model):
     def get_source(self):
         return tuple(x for x in self.source.split('$') if x != '')
 
-    def process(self, force=False, logger=None, dictionary={}):
+    def process(self, force=False, logger=None, dictionary=None):
+        dictionary = dictionary or {}
+        now = timezone.now()
+
         if logger:
             self.logger = get_logger(logger)
-        now = timezone.now()
-        if not force and not self.date_processed is None:
+
+        if not force and self.date_processed is not None:
             raise AlreadyProcessedError()
+
         if not force and self.process_after and self.process_after >= now:
             raise ProcessLaterError(self.process_after)
 
@@ -95,8 +99,10 @@ class Trigger(models.Model):
             self.process_after = e.process_after
             self.save()
             raise
+
         if self.date_processed is None:
             self.date_processed = now
+
         self.save()
 
     def _process(self, dictionary):
@@ -107,7 +113,7 @@ class Trigger(models.Model):
 
 
 class TriggerResult(models.Model):
-    trigger = models.ForeignKey(Trigger)
+    trigger = models.ForeignKey(Trigger, on_delete=models.CASCADE)
     result = models.TextField()
 
     def __repr__(self):

@@ -1,0 +1,12 @@
+python-dateutil
+lockfile==0.10.2
+
+mock==1.0.1
+
+factory_boy==2.9.1
+django-factory_boy==1.0.0
+fake-factory==0.5.7
+
+py==1.5.2
+pytest==4.3.0
+pytest-django==3.4.5
