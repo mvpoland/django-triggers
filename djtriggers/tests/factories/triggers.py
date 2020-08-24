@@ -1,11 +1,12 @@
+from builtins import object
 from django.utils import timezone
-from factory import DjangoModelFactory
+from factory.django import DjangoModelFactory
 
 from djtriggers.tests.models import DummyTrigger
 
 
 class DummyTriggerFactory(DjangoModelFactory):
-    class Meta:
+    class Meta(object):
         model = DummyTrigger
 
     trigger_type = 'dummy_trigger_test'

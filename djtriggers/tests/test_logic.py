@@ -1,7 +1,5 @@
 from datetime import timedelta
-from mock import patch
 
-from django.test import override_settings
 from django.test.testcases import TestCase
 from django.utils import timezone
 
