@@ -1,4 +1,3 @@
-from django.conf import settings
 from django.core.management.base import NoArgsCommand
 
 from djtriggers.logic import clean_triggers

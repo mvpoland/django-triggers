@@ -1,11 +1,13 @@
+from builtins import str
 from django.db import models
 from django.db.models.base import ModelBase
 from django.utils import timezone
 
-from .managers import TriggerManager
-from .exceptions import AlreadyProcessedError, ProcessLaterError
-from .loggers import get_logger
-from .loggers.base import TriggerLogger
+from djtriggers.managers import TriggerManager
+from djtriggers.exceptions import AlreadyProcessedError, ProcessLaterError
+from djtriggers.loggers import get_logger
+from djtriggers.loggers.base import TriggerLogger
+from future.utils import with_metaclass
 
 
 class TriggerBase(ModelBase):
@@ -26,7 +28,7 @@ class TriggerBase(ModelBase):
         return new_class
 
 
-class Trigger(models.Model):
+class Trigger(with_metaclass(TriggerBase, models.Model)):
     """
     A persistent Trigger that needs processing.
 
@@ -50,7 +52,6 @@ class Trigger(models.Model):
     __init__, that logger will be used, otherwise the class' _logger_class
     determines the logger (if any). Default is no logging.
     """
-    __metaclass__ = TriggerBase
 
     # Set typed in a subclass to make it a typed trigger.
     typed = None

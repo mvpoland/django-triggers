@@ -1,3 +1,4 @@
+from builtins import str
 from djtriggers.loggers.base import TriggerLogger
 
 class DatabaseLogger(TriggerLogger):

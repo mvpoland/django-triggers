@@ -1,15 +1,12 @@
 from datetime import datetime, timedelta
-from logging import ERROR, WARNING
 
 from mock import patch, MagicMock
 from pytest import raises
-from django.test import override_settings
 from django.test.testcases import TestCase
 from django.utils import timezone
 
 from djtriggers.exceptions import ProcessLaterError
 from djtriggers.loggers.base import TriggerLogger
-from djtriggers.models import Trigger
 from djtriggers.tests.factories.triggers import DummyTriggerFactory
 
 

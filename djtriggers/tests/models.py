@@ -1,8 +1,9 @@
+from builtins import object
 from djtriggers.models import Trigger
 
 
 class DummyTrigger(Trigger):
-    class Meta:
+    class Meta(object):
         proxy = True
 
     typed = 'dummy_trigger'

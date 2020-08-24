@@ -10,10 +10,9 @@ from django.apps import apps
 from django.conf import settings
 from django.db import connections
 from django.db.models import Q
-from django.utils import timezone
 
-from .models import Trigger
-from .exceptions import ProcessError, ProcessLaterError
+from djtriggers.models import Trigger
+from djtriggers.exceptions import ProcessError, ProcessLaterError
 
 
 logger = getLogger(__name__)

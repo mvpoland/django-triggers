@@ -1,3 +1,4 @@
+from builtins import object
 import logging
 
 logger = logging.getLogger(__name__)
@@ -49,5 +50,5 @@ class Check(object):
     def succeeded(self):
         return bool(self.result)
 
-    def __nonzero__(self):
+    def __bool__(self):
         return self.succeeded

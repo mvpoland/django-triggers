@@ -1,3 +1,4 @@
+from builtins import object
 class TriggerLogger(object):
     """
     A logger for the processing of a trigger.
