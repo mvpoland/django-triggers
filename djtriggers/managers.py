@@ -15,4 +15,3 @@ class TriggerManager(models.Manager):
     def get_unprocessed_triggers(self):
         qs = self.get_queryset()
         return qs.filter(date_processed__isnull=True)
-

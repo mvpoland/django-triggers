@@ -1,12 +1,11 @@
-from builtins import object
 from djtriggers.models import Trigger
 
 
 class DummyTrigger(Trigger):
-    class Meta(object):
+    class Meta:
         proxy = True
 
-    typed = 'dummy_trigger'
+    typed = "dummy_trigger"
 
     def _process(self, dictionary):
         pass

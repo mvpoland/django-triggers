@@ -1,7 +1,7 @@
-from builtins import object
 import logging
 
 logger = logging.getLogger(__name__)
+
 
 def run_checks(checks):
     """
@@ -27,9 +27,9 @@ def run_checks(checks):
     return (all_succeeded, results)
 
 
-class Check(object):
+class Check:
     def run(self):
-        logger.debug('Running check: %s' % self.__class__.__name__)
+        logger.debug("Running check: %s" % self.__class__.__name__)
         self._result = self._run()
         return self._result
 
@@ -44,7 +44,7 @@ class Check(object):
 
     @property
     def has_run(self):
-        return hasattr(self, '_result')
+        return hasattr(self, "_result")
 
     @property
     def succeeded(self):

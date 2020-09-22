@@ -1,6 +1,7 @@
 from optparse import make_option
 
 from django.core.management.base import NoArgsCommand
+
 from djtriggers.logic import process_trigger
 
 
@@ -11,7 +12,7 @@ class Command(NoArgsCommand):
             dest="use_statsd",
             action="store_true",
             default=False,
-            help="Send stats about processing to Statsd"
+            help="Send stats about processing to Statsd",
         ),
     )
 
