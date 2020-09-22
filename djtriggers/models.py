@@ -1,13 +1,11 @@
-from builtins import str
 from django.db import models
 from django.db.models.base import ModelBase
 from django.utils import timezone
 
-from djtriggers.managers import TriggerManager
 from djtriggers.exceptions import AlreadyProcessedError, ProcessLaterError
 from djtriggers.loggers import get_logger
 from djtriggers.loggers.base import TriggerLogger
-from future.utils import with_metaclass
+from djtriggers.managers import TriggerManager
 
 
 class TriggerBase(ModelBase):
@@ -15,11 +13,12 @@ class TriggerBase(ModelBase):
     A meta class for all Triggers. Adds a default manager that filters
     on type.
     """
+
     def __new__(cls, name, bases, attrs):
         super_new = super(TriggerBase, cls).__new__
-        typed = attrs.pop('typed', None)
+        typed = attrs.pop("typed", None)
         if typed is not None:
-            attrs['objects'] = TriggerManager(typed)
+            attrs["objects"] = TriggerManager(typed)
         new_class = super_new(cls, name, bases, attrs)
         if typed is None:
             return new_class
@@ -28,7 +27,7 @@ class TriggerBase(ModelBase):
         return new_class
 
 
-class Trigger(with_metaclass(TriggerBase, models.Model)):
+class Trigger(models.Model, metaclass=TriggerBase):
     """
     A persistent Trigger that needs processing.
 
@@ -66,7 +65,7 @@ class Trigger(with_metaclass(TriggerBase, models.Model)):
 
     def __init__(self, *args, **kwargs):
         super(Trigger, self).__init__(*args, **kwargs)
-        if hasattr(self, 'typed'):
+        if hasattr(self, "typed"):
             self.trigger_type = self.typed
 
         if self._logger_class:
@@ -76,10 +75,10 @@ class Trigger(with_metaclass(TriggerBase, models.Model)):
 
     def set_source(self, *args):
         args = [str(arg) for arg in args]
-        self.source = '$'.join(args)
+        self.source = "$".join(args)
 
     def get_source(self):
-        return tuple(x for x in self.source.split('$') if x != '')
+        return tuple(x for x in self.source.split("$") if x != "")
 
     def process(self, force=False, logger=None, dictionary=None):
         dictionary = dictionary or {}
@@ -110,7 +109,11 @@ class Trigger(with_metaclass(TriggerBase, models.Model)):
         raise NotImplementedError()
 
     def __repr__(self):
-        return 'Trigger %s of type %s (%sprocessed)' % (self.id, self.trigger_type, '' if self.date_processed else 'not ')
+        return "Trigger %s of type %s (%sprocessed)" % (
+            self.id,
+            self.trigger_type,
+            "" if self.date_processed else "not ",
+        )
 
 
 class TriggerResult(models.Model):

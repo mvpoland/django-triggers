@@ -1,12 +1,12 @@
-SECRET_KEY = 'fake-key'
+SECRET_KEY = "fake-key"
 
 INSTALLED_APPS = [
-    'djtriggers',
+    "djtriggers",
 ]
 
 DATABASES = {
-    'default': {
-        'ENGINE': 'django.db.backends.sqlite3',
-        'NAME': 'db.sqlite3',
+    "default": {
+        "ENGINE": "django.db.backends.sqlite3",
+        "NAME": "db.sqlite3",
     }
 }

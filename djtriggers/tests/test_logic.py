@@ -8,7 +8,6 @@ from djtriggers.tests.factories.triggers import DummyTriggerFactory
 
 
 class SynchronousExecutionTest(TestCase):
-
     def test_process_after_now(self):
         trigger = DummyTriggerFactory()
         process_triggers()
